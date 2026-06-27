@@ -1983,7 +1983,7 @@ t={t}
                 {/* 用户信息行 */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
                   <img
-                    src="https://nocode.meituan.com/photo/search?keyword=girl,avatar&width=40&height=40"
+                    src="https://afterline.meituan.com/photo/search?keyword=girl,avatar&width=40&height=40"
                     alt="avatar"
                     style={{ width: "36px", height: "36px", borderRadius: "50%", objectFit: "cover", border: "1.5px solid rgba(232,168,124,0.3)" }}
                   />
@@ -2017,7 +2017,7 @@ t={t}
                 >
                   <div style={{ position: "relative", height: "100px", overflow: "hidden" }}>
                     <img
-                      src="https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg"
+                      src="https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg"
                       alt="专属剧情"
                       style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.5)", objectPosition: "center 20%" }}
                     />
@@ -2065,7 +2065,7 @@ t={t}
                 {/* 用户信息行 */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
                   <img
-                    src="https://nocode.meituan.com/photo/search?keyword=woman,portrait&width=40&height=40"
+                    src="https://afterline.meituan.com/photo/search?keyword=woman,portrait&width=40&height=40"
                     alt="avatar2"
                     style={{ width: "36px", height: "36px", borderRadius: "50%", objectFit: "cover", border: "1.5px solid rgba(232,168,124,0.35)" }}
                   />

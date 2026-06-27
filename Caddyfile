@@ -1,6 +1,6 @@
 :80 {
     # 前端静态文件
-    root * /home/ubuntu/nocode/dist
+    root * /home/ubuntu/afterline/dist
     file_server
 
     # API 代理到后端

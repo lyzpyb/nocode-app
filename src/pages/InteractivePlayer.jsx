@@ -7,7 +7,7 @@ import ChatEntryModal from "@/components/ChatEntryModal.jsx";
 const STORY_SCRIPT = {
   start: {
     type: "video",
-    url: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/i6g3zi5nnj9eesml828ezoo1gcxjwn/mmexport1779810379501.mp4",
+    url: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/i6g3zi5nnj9eesml828ezoo1gcxjwn/mmexport1779810379501.mp4",
     next: "choice1",
   },
   choice1: {
@@ -20,17 +20,17 @@ const STORY_SCRIPT = {
   },
   branch_a: {
     type: "video",
-    url: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/9vcntms1jqblzvv20zjmbdzhgfj86s/%E5%88%86%E6%94%AF1.mp4",
+    url: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/9vcntms1jqblzvv20zjmbdzhgfj86s/%E5%88%86%E6%94%AF1.mp4",
     next: "mid_node",
   },
   branch_b: {
     type: "video",
-    url: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/j7tkldvp3qiyj8a3xfxro7vfyd4jle/%E5%88%86%E6%94%AF2.mp4",
+    url: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/j7tkldvp3qiyj8a3xfxro7vfyd4jle/%E5%88%86%E6%94%AF2.mp4",
     next: "mid_node",
   },
   mid_node: {
     type: "video",
-    url: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/1yfxidyjcmoyorazky4fa42ctvavus/%E8%8A%82%E7%82%B9.mp4",
+    url: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/1yfxidyjcmoyorazky4fa42ctvavus/%E8%8A%82%E7%82%B9.mp4",
     next: "choice2",
   },
   choice2: {
@@ -43,14 +43,14 @@ const STORY_SCRIPT = {
   },
   ending_a: {
     type: "video",
-    url: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/l1ht1jnb7392kmnrbjw31fk0ckcgim/%E8%8A%82%E7%82%B9A.mp4",
+    url: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/l1ht1jnb7392kmnrbjw31fk0ckcgim/%E8%8A%82%E7%82%B9A.mp4",
     next: null,
     isEnding: true,
     endingTitle: "结局A · 命运的温柔",
   },
   ending_b: {
     type: "video",
-    url: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/6ep9xg6z2gqs677hs9m1hrlxmsvinz/%E8%8A%82%E7%82%B9B.mp4",
+    url: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/6ep9xg6z2gqs677hs9m1hrlxmsvinz/%E8%8A%82%E7%82%B9B.mp4",
     next: null,
     isEnding: true,
     endingTitle: "结局B · 逆风而行",

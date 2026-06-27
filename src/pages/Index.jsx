@@ -20,7 +20,7 @@ const FEATURED_ROLES = [
     hearts: '12.8w',
     tags: ['校园', '高冷', '口嫌体正直'],
     tagCategory: '危险偏爱',
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg',
     isTop: true,
   },
   {
@@ -34,7 +34,7 @@ const FEATURED_ROLES = [
     hearts: '6.1w',
     tags: ['医生', '温柔救赎', '双向治愈'],
     tagCategory: '年上诱惑',
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-y8tmfj048y6x3cbgxjyo3lmy21eiyf.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-y8tmfj048y6x3cbgxjyo3lmy21eiyf.png',
     isTop: false,
   },
   {
@@ -48,7 +48,7 @@ const FEATURED_ROLES = [
     hearts: '5.2w',
     tags: ['转学生', '神秘', '禁忌之恋'],
     tagCategory: '危险偏爱',
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-zr9i7477bb69nx8qaauqanuphwv0rq.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-zr9i7477bb69nx8qaauqanuphwv0rq.png',
     isTop: false,
   },
   {
@@ -62,7 +62,7 @@ const FEATURED_ROLES = [
     hearts: '8.5w',
     tags: ['前男友', '追妻', '破镜重圆'],
     tagCategory: '追妻火葬场',
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-bxc4ymnfdqrm0bt38d3fbpqkxb2sgu.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-bxc4ymnfdqrm0bt38d3fbpqkxb2sgu.png',
     isTop: false,
   },
 ];
@@ -78,7 +78,7 @@ const NAODONG_STORIES = [
     hearts: '3.8w',
     tags: ['每日体验', '人生副本', '脑洞'],
     isHot: true,
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-naodong-jubenrensheng.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-naodong-jubenrensheng.png',
   },
   {
     id: 102,
@@ -90,7 +90,7 @@ const NAODONG_STORIES = [
     hearts: '2.6w',
     tags: ['怪谈', '规则', '恐怖'],
     isHot: false,
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-naodong-guizeguitan.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-naodong-guizeguitan.png',
   },
   {
     id: 103,
@@ -102,13 +102,13 @@ const NAODONG_STORIES = [
     hearts: '4.1w',
     tags: ['平行宇宙', '自我', '选择'],
     isHot: false,
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-naodong-lingyigewo.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-naodong-lingyigewo.png',
   },
 ];
 
 const NAODONG_TRENDING = [
-  { id: 101, title: '剧本人生', genre: '脑洞·人生体验', rating: '4.8', image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-naodong-jubenrensheng.png' },
-  { id: 102, title: '规则怪谈', genre: '脑洞·怪谈', rating: '4.7', image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-naodong-guizeguitan.png' },
+  { id: 101, title: '剧本人生', genre: '脑洞·人生体验', rating: '4.8', image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-naodong-jubenrensheng.png' },
+  { id: 102, title: '规则怪谈', genre: '脑洞·怪谈', rating: '4.7', image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-naodong-guizeguitan.png' },
 ];
 
 const XUANYI_STORIES = [
@@ -122,7 +122,7 @@ const XUANYI_STORIES = [
     hearts: '6.2w',
     tags: ['刑侦', '悬疑', '推理'],
     isHot: true,
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-xuanyi-diqigan.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-xuanyi-diqigan.png',
   },
   {
     id: 202,
@@ -134,7 +134,7 @@ const XUANYI_STORIES = [
     hearts: '4.5w',
     tags: ['失忆', '心理', '暗黑'],
     isHot: false,
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-xuanyi-yiwangzhengci.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-xuanyi-yiwangzhengci.png',
   },
   {
     id: 203,
@@ -146,13 +146,13 @@ const XUANYI_STORIES = [
     hearts: '5.8w',
     tags: ['恐怖', '都市传说', '来电'],
     isHot: false,
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-xuanyi-shenyelaidian.png',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-xuanyi-shenyelaidian.png',
   },
 ];
 
 const XUANYI_TRENDING = [
-  { id: 201, title: '第七感', genre: '悬疑·刑侦', rating: '4.9', image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-xuanyi-diqigan.png' },
-  { id: 202, title: '遗忘证词', genre: '悬疑·心理', rating: '4.8', image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/image-xuanyi-yiwangzhengci.png' },
+  { id: 201, title: '第七感', genre: '悬疑·刑侦', rating: '4.9', image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-xuanyi-diqigan.png' },
+  { id: 202, title: '遗忘证词', genre: '悬疑·心理', rating: '4.8', image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/image-xuanyi-yiwangzhengci.png' },
 ];
 
 const TRENDING = [
@@ -161,14 +161,14 @@ const TRENDING = [
     title: '心动禁区',
     genre: '校园言情',
     rating: '4.9',
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/7e9f3hxarnd9a9hfjsm60lu6gmak98/0%281%29.jpg',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/7e9f3hxarnd9a9hfjsm60lu6gmak98/0%281%29.jpg',
   },
   {
     id: 1,
     title: '糟糕，是心动',
     genre: '校园爱情',
     rating: '4.9',
-    image: 'https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/IMG_20260519_210434-39q1ge0kyorbcfou6q790xbs7vguhq.jpg',
+    image: 'https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/IMG_20260519_210434-39q1ge0kyorbcfou6q790xbs7vguhq.jpg',
   },
 ]; // ─── Role Card (参考UI风格) ───────────────────────────────────────────────────
 
@@ -621,7 +621,7 @@ const BottomNav = ({ active, onNavigate, hideInteractive }) => {
 const CALLER_INFO = {
   name: '沈彦希',
   role: '篮球队学长',
-  image: 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg',
+  image: 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg',
 };
 
 const IncomingCallBanner = ({ dramaId, onAccept, onDecline }) =>
@@ -1009,7 +1009,7 @@ const Index = ({ hideInteractive = false }) => {
               style={{ aspectRatio: '3/4' }}
             >
               <img
-                src='https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/4vbiloxy1ho2gscfb2m5pas6qwgqr4/frame_ep1_30s.jpg'
+                src='https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/4vbiloxy1ho2gscfb2m5pas6qwgqr4/frame_ep1_30s.jpg'
                 alt='停电夜惊喜'
                 className='mx-auto object-cover w-full h-full'
               />

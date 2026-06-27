@@ -12,7 +12,7 @@ export const CHARACTERS = {
     intimacy: 0,
     intimacyMax: 100,
     image:
-      "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg",
+      "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg",
   },
   "3": {
     name: "江辰",
@@ -22,7 +22,7 @@ export const CHARACTERS = {
     intimacy: 0,
     intimacyMax: 100,
     image:
-      "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/hx5eovz6t1h7l30vrwq9nvsg5m83o8/duanju3-cover.jpg",
+      "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/hx5eovz6t1h7l30vrwq9nvsg5m83o8/duanju3-cover.jpg",
   },
   "4": {
     name: "顾星辰",
@@ -32,7 +32,7 @@ export const CHARACTERS = {
     intimacy: 30,
     intimacyMax: 100,
     image:
-      "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/hqvin4azabltjyyhpwkkwywsh1o2y9/zaogao-cover.jpg",
+      "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/hqvin4azabltjyyhpwkkwywsh1o2y9/zaogao-cover.jpg",
   },
 };
 

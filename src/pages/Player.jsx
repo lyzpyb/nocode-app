@@ -169,7 +169,7 @@ const IncomingCallOverlay = ({ caller, onAccept, onDecline, t }) => {
       navigator.vibrate(pattern);
     }
     const audio = new Audio(
-      "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/zmmsqqlhctcgy35orqmrgi6rams2o2/Opening.m4a"
+      "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/zmmsqqlhctcgy35orqmrgi6rams2o2/Opening.m4a"
     );
     audio.loop = true;
     audio.volume = 0.85;
