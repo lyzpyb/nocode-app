@@ -53,7 +53,7 @@ app.post('/api/ark/*', async (req, res) => {
   }
 });
 
-// Coze Agent 代理
+// Coze Agent 代理（使用 stream_run + 新格式）
 app.post('/api/coze-agent', async (req, res) => {
   try {
     const { session_id, user_message, project_id } = req.body;
@@ -67,6 +67,7 @@ app.post('/api/coze-agent', async (req, res) => {
     
     console.log(`[Coze-Agent] Session: ${session_id}, Message: ${user_message.substring(0, 50)}...`);
 
+    // 使用新格式发送请求
     const cozeResp = await fetch(COZE_API_URL, {
       method: 'POST',
       headers: {
@@ -74,9 +75,21 @@ app.post('/api/coze-agent', async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        project_id: project_id || 7655610175763791914,
+        content: {
+          query: {
+            prompt: [
+              {
+                type: 'text',
+                content: {
+                  text: user_message
+                }
+              }
+            ]
+          }
+        },
+        type: 'query',
         session_id: session_id,
-        user_message: user_message,
+        project_id: project_id || 7655610175763791914
       }),
     });
 
@@ -110,14 +123,11 @@ app.post('/api/coze-agent', async (req, res) => {
             if (data.type === 'answer' && data.content?.answer) {
               fullAnswer += data.content.answer;
             }
-          } catch (e) {
-            // 忽略解析错误
-          }
+          } catch (e) {}
         }
       }
     }
 
-    // 处理 buffer 中剩余的数据
     if (buffer.startsWith('data: ')) {
       try {
         const data = JSON.parse(buffer.slice(6));
@@ -127,12 +137,13 @@ app.post('/api/coze-agent', async (req, res) => {
       } catch (e) {}
     }
 
+    console.log(`[Coze-Agent] Answer length: ${fullAnswer.length}`);
+
     if (!fullAnswer) {
       console.warn('[Coze-Agent] No answer content in response');
       return res.status(500).json({ error: 'Coze Agent 未返回有效内容' });
     }
 
-    console.log(`[Coze-Agent] Answer length: ${fullAnswer.length}`);
     res.json({ content: fullAnswer, session_id });
 
   } catch (err) {
