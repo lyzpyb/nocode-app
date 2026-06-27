@@ -1,0 +1,25 @@
+:80 {
+    # 前端静态文件
+    root * /home/ubuntu/nocode/dist
+    file_server
+
+    # API 代理到后端
+    handle /api/* {
+        reverse_proxy localhost:3000
+    }
+
+    # 健康检查代理
+    handle /health {
+        reverse_proxy localhost:3000
+    }
+
+    # 存储代理
+    handle /storage/* {
+        reverse_proxy localhost:3000
+    }
+
+    # SPA 路由 - 所有其他请求返回 index.html
+    handle {
+        try_files {path} /index.html
+    }
+}
