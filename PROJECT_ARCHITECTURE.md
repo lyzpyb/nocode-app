@@ -1,198 +1,154 @@
-# Nocode 项目代码梳理
+# Afterline 项目架构
+
+> AI 互动短剧 App。React 前端 + Express 后端 + 腾讯云 CloudBase（Serverless 文档数据库）。
+> 部署在腾讯云服务器，Caddy 反代。GitHub: lyzpyb/nocode-app（master 分支）。
+
+---
 
 ## 📁 项目结构
 
 ```
 nocode/
-├── server/                      # 后端服务
-│   ├── index.js                 # Express 服务器主入口
-│   ├── cloudbase.js             # CloudBase SDK 数据库操作模块
-│   ├── .env                     # 环境变量（API keys）
-│   └── package.json             # 后端依赖
+├── server/                       # 后端服务（Express + CloudBase SDK）
+│   ├── index.js                  # 服务器主入口，所有 API 路由
+│   ├── cloudbase.js              # CloudBase SDK 封装（用户/聊天/进度/内容读写）
+│   ├── .env                      # 环境变量（凭证，gitignore）
+│   ├── .env.example              # 环境变量模板（可提交）
+│   └── package.json              # 后端依赖
 │
-├── src/                         # 前端源码
-│   ├── App.jsx                  # 主应用组件（路由）
-│   ├── main.jsx                 # 入口文件
-│   ├── nav-items.jsx            # 路由配置
+├── scripts/                      # 运维/迁移脚本
+│   ├── init-cloudbase.js         # 初始化数据（读 server/.env，不硬编码密钥）
+│   └── migrate-content.js        # 内容迁移：前端 i18n 剧情 → CloudBase（幂等）
+│
+├── src/                          # 前端源码
+│   ├── main.jsx                  # 入口（AfterlineProvider + UserProvider）
+│   ├── App.jsx                   # 路由
 │   ├── contexts/
-│   │   └── AfterlineContext.jsx # 全局状态
+│   │   ├── AfterlineContext.jsx  # SDK 就绪标记（空壳）
+│   │   └── UserContext.jsx       # 用户登录 + 进度（设备 ID，调用后端 API）
 │   ├── lib/
-│   │   └── aiClient.js          # AI API 客户端
-│   ├── pages/                   # 页面组件
-│   │   ├── Index.jsx            # 首页（短剧展示）
-│   │   ├── Chat.jsx             # 聊天页面
-│   │   ├── Player.jsx           # 播放器
-│   │   └── ...
-│   ├── components/              # UI 组件
-│   └── i18n/                    # 国际化
+│   │   ├── aiClient.js           # AI API 客户端
+│   │   └── api.js                # 后端 API 调用封装
+│   ├── i18n/
+│   │   ├── index.jsx             # LocaleProvider + useLocale（含远端内容 overlay）
+│   │   ├── contentAdapter.js     # 把后端扁平内容还原成静态 i18n 结构 + 完整度校验
+│   │   ├── zh/ , en/             # 中英文静态数据（strings/dramas/chat）
+│   ├── pages/                    # 页面组件
+│   └── components/               # UI 组件
 │
-├── dist/                        # 前端构建产物
-├── Caddyfile                    # Caddy 反代配置
-├── package.json                 # 前端依赖
-└── vite.config.js               # Vite 配置
+├── dist/                         # 前端构建产物（Caddy 直接服务此目录）
+└── vite.config.js                # Vite 配置（@ 别名）
 ```
+
+> 注：Caddyfile 实际生效的是 `/etc/caddy/Caddyfile`，root 指向 `/home/ubuntu/nocode/dist`。
+> 项目根目录下的 `Caddyfile` 只是副本，不生效——改配置要改 `/etc/caddy/`。
 
 ---
 
-## 🔧 后端架构
+## 🔧 后端 API（server/index.js，端口 3000）
 
-### 服务器 (server/index.js)
-- **框架**: Express
-- **端口**: 3000
-- **数据库**: 腾讯云 CloudBase (Serverless MongoDB)
-
-### API 端点
-
+### 代理 / 健康
 | 路径 | 方法 | 功能 |
 |------|------|------|
 | `/health` | GET | 健康检查 |
-| `/api/user/login` | POST | 用户登录（设备ID） |
-| `/api/dramas` | GET | 获取剧本列表 |
-| `/api/dramas/:id` | GET | 获取剧本详情 |
-| `/api/characters/:id` | GET | 获取角色详情 |
-| `/api/chat/history` | GET | 获取聊天历史 |
-| `/api/chat/message` | POST | 保存聊天消息 |
-| `/api/chat/history` | DELETE | 清空聊天历史 |
-| `/api/progress` | GET | 获取用户进度 |
-| `/api/progress` | POST | 更新用户进度 |
-| `/api/progress/all` | GET | 获取用户所有进度 |
-| `/api/coze-agent` | POST | Coze AI Agent 代理 |
 | `/api/ark/*` | POST | Ark API 代理（字节 AI） |
+| `/api/coze-agent` | POST | Coze Bot 代理（stream_run，多轮对话） |
 
-### 数据库模块 (server/cloudbase.js)
-- **集合**: `afterline`（统一集合）
-- **数据类型**: 
-  - `drama` - 剧本
-  - `character` - 角色
-  - `user` - 用户
-  - `chat_history` - 聊天记录
-  - `user_progress` - 用户进度
+### 用户 / 聊天 / 进度（运行时数据，CloudBase 读写）
+| 路径 | 方法 | 功能 |
+|------|------|------|
+| `/api/user/login` | POST | 登录/创建用户（设备 ID，返回含 user_id） |
+| `/api/chat/history` | GET / DELETE | 读取 / 清空聊天记录 |
+| `/api/chat/message` | POST | 追加聊天消息 |
+| `/api/progress` | GET / POST | 读取 / 更新单条进度 |
+| `/api/progress/all` | GET | 读取用户全部进度 |
+
+### 内容 API（只读，按 locale，数据由 migrate-content.js 灌入）
+| 路径 | 方法 | 功能 |
+|------|------|------|
+| `/api/content/all` | GET | 一次拿齐某 locale 全部内容（前端 overlay 接入点） |
+| `/api/content/meta` | GET | drama_order / 角色卡 / 推荐位 / 热榜 / char_bio |
+| `/api/content/dramas` | GET | 短剧列表（含视频 URL） |
+| `/api/content/episodes` | GET | 剧集（梗概 + 互动开场） |
+| `/api/content/scenes` | GET | 分支剧情树 |
+| `/api/content/chat-chars` | GET | 聊天角色态（好感度/等级） |
+
+> `/api/dramas`、`/api/dramas/:id`、`/api/characters/:id` 也存在（早期单条读取），
+> 但当前内容主链路走 `/api/content/*`。
 
 ---
 
-## 🎨 前端架构
+## 🗄️ 数据库（CloudBase 单集合 `afterline`，按 type 区分）
 
-### 路由结构
-
-| 路径 | 页面 | 说明 |
+| type | 用途 | 来源 |
 |------|------|------|
-| `/` | Landing | 展示页/落地页 |
-| `/drama` | Player | A版（短剧版） |
-| `/full` | Index | B版（完整版首页） |
-| `/discover` | Discover | 追剧 |
-| `/crave` | Crave | 圈子 |
-| `/community` | Community | 社区 |
-| `/profile` | Profile | 我的 |
-| `/player/:id` | Player | 播放器 |
-| `/chat/:dramaId/:charId` | Chat | 聊天 |
-| `/gallery/:dramaId` | Gallery | 图库 |
-| `/call/:dramaId` | Call | 通话 |
-| `/video-create/:dramaId/:ep` | VideoCreate | 视频创作 |
-| `/interactive-player` | InteractivePlayer | 互动播放器 |
-| `/comic-demo` | ComicDemo | 漫剧Demo |
-| `/recreation` | RecreationPlayer | 互动影游 |
-| `/create-hub` | CreateHub | 创作中心 |
-| `/hotspring` | HotspringGame | 温泉危机游戏 |
+| `user` | 用户（设备 ID） | 运行时 |
+| `chat_history` | 聊天记录 | 运行时 |
+| `user_progress` | 用户进度 | 运行时 |
+| `content_meta` | 全局列表（每 locale 一条） | migrate-content.js |
+| `content_drama` | 短剧 + 视频 URL | migrate-content.js |
+| `content_episode` | 剧集梗概 + 开场 | migrate-content.js |
+| `content_scene_set` | 分支剧情树 | migrate-content.js |
+| `content_chat_char` | 聊天角色态 | migrate-content.js |
 
-### 核心模块
+环境: `cyb-cloudbase-d5g19w0dac2e94bfa`。凭证从 `server/.env` 读取，不硬编码。
 
-1. **AfterlineContext** - 全局状态管理
-2. **aiClient.js** - AI API 统一调用
-3. **Chat.jsx** - 聊天页面（核心功能）
-4. **Index.jsx** - 首页（剧本展示）
+> 中英文是两套**不同的剧本**（中文沈彦希校园线 / 英文 Kane 奇幻线），
+> 各自完整，并非同一故事的两种翻译。集数/角色不对称是设计如此，不是缺数据。
+
+---
+
+## 🎨 前端内容加载策略（渐进式 overlay + 静态兜底）
+
+```
+组件 useLocale().dramas / .chat
+        │
+        ▼
+LocaleProvider
+  ├── 首屏：静态 i18n 数据（src/i18n/zh|en）── 立即可用，绝不退化
+  └── 后台：fetch /api/content/all
+            → contentAdapter 还原成静态结构 + 完整度校验
+            → 校验通过才覆盖；失败/数据不全 → 保持静态兜底
+```
+
+核心红线：**API 数据完整度 < 静态数据时一律回落**，最坏情况等于纯静态现状。
+已验证：手动停后端后前端仍正常渲染（控制台打回落警告）。
 
 ---
 
 ## 🌐 部署架构
 
 ```
-用户浏览器
-    │
-    ▼
-┌─────────────────────────────────────┐
-│  Caddy (端口 80)                    │
-│  - 静态文件服务 (前端 dist/)         │
-│  - API 反向代理 → localhost:3000    │
-└─────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────┐
-│  Node.js (端口 3000)                │
-│  - Express 服务器                   │
-│  - CloudBase SDK                    │
-└─────────────────────────────────────┘
-    │
-    ▼
-┌─────────────────────────────────────┐
-│  腾讯云 CloudBase                   │
-│  环境: cyb-cloudbase-d5g19w0dac2e94bfa │
-│  集合: afterline                    │
-└─────────────────────────────────────┘
+浏览器
+  │
+  ▼
+Caddy (端口 80)  ── /etc/caddy/Caddyfile
+  ├── 静态文件: /home/ubuntu/nocode/dist
+  ├── /storage/* → server/storage（外部 CDN 资源除外）
+  └── /api/*, /health, /functions/* → localhost:3000
+  │
+  ▼
+Node.js Express (端口 3000) ── PM2 守护（进程名 afterline-api，已 pm2 save）
+  │
+  ▼
+腾讯云 CloudBase（集合 afterline）
 ```
+
+视频/图片走外部 CDN（s3plus.meituan.net 等），不在部署包内，URL 硬编码在数据里——不要随意改。
 
 ---
 
-## 📊 数据流
+## ✅ 已完成
 
-### 聊天功能
-```
-用户输入 → Chat.jsx → aiClient.callCozeAgent()
-    → /api/coze-agent → Coze Bot API
-    → 返回 AI 回复 → 显示在聊天界面
-    → 保存到 CloudBase (chat_history)
-```
-
-### 剧本加载
-```
-首页加载 → /api/dramas → CloudBase 查询
-    → 返回剧本列表 → 渲染 RoleCard 组件
-    → 点击进入 → /chat/:dramaId/:charId
-```
-
----
-
-## ⚙️ 配置文件
-
-### 环境变量 (server/.env)
-```
-CLOUDBASE_ENV_ID=cyb-cloudbase-d5g19w0dac2e94bfa
-CLOUDBASE_SECRET_ID=AKIDxxxxx
-CLOUDBASE_SECRET_KEY=xxxxx
-COZE_TOKEN=xxxxx
-ARK_CHAT_KEY=xxxxx
-```
-
-### Caddy 配置
-- 前端静态文件: `/home/ubuntu/afterline/dist`
-- API 代理: `/api/*` → `localhost:3000`
-
----
-
-## 🔍 关键文件
-
-| 文件 | 用途 |
-|------|------|
-| `server/index.js` | 后端入口，所有 API 路由 |
-| `server/cloudbase.js` | 数据库操作封装 |
-| `src/App.jsx` | 前端路由配置 |
-| `src/pages/Chat.jsx` | 核心聊天页面 |
-| `src/lib/aiClient.js` | AI API 调用封装 |
-| `Caddyfile` | 反向代理配置 |
-
----
-
-## ✅ 已完成功能
-
-1. ✅ CloudBase 数据库接入
-2. ✅ 剧本和角色数据初始化
-3. ✅ Coze Bot 多轮对话修复
-4. ✅ 用户登录（设备ID）
-5. ✅ 聊天记录保存
-6. ✅ 用户进度保存
-7. ✅ 前端部署到服务器
+1. CloudBase 接入（用户/聊天/进度 CRUD）
+2. 用户登录（设备 ID）+ 进度持久化（UserProvider）
+3. Coze Bot 多轮对话
+4. 前端 API 接入（剧情 overlay + 静态回落）
+5. 剧情内容迁移到 CloudBase（5 剧 / 32 集 / 剧情树 / 中英文）
+6. 只读内容 API
+7. 后端 PM2 守护 + 前端部署
 
 ## 🚧 待完成
 
-1. 前端调用后端 API（目前使用硬编码数据）
-2. 用户进度同步到数据库
-3. 生产环境优化（PM2、日志）
+1. 生产日志/监控（PM2 日志轮转、错误告警）
+2. 内容后台编辑能力（目前改剧情需跑 migrate 脚本）
