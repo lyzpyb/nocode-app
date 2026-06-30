@@ -189,3 +189,60 @@ export async function getAllUserProgress(userId) {
     .get()
   return data
 }
+
+// ============ 内容操作（迁移自前端 i18n，按 locale 读）============
+// 注意：内容数据由 scripts/migrate-content.js 灌入，type 以 content_ 前缀区分。
+
+function normLocale(locale) {
+  return locale === 'en' ? 'en' : 'zh'
+}
+
+// 全局 meta（drama_order / 角色卡 / 推荐位 / 热榜 / char_bio 等），每 locale 一条
+export async function getContentMeta(locale) {
+  const { data } = await db.collection(COLLECTION)
+    .where({ type: 'content_meta', locale: normLocale(locale) })
+    .limit(1)
+    .get()
+  return data.length > 0 ? data[0] : null
+}
+
+// 短剧列表（含视频 URL）
+export async function getContentDramas(locale) {
+  const { data } = await db.collection(COLLECTION)
+    .where({ type: 'content_drama', locale: normLocale(locale) })
+    .get()
+  return data
+}
+
+// 全部剧集（梗概 + 互动开场），按 ep 升序
+export async function getContentEpisodes(locale) {
+  const { data } = await db.collection(COLLECTION)
+    .where({ type: 'content_episode', locale: normLocale(locale) })
+    .orderBy('ep', 'asc')
+    .get()
+  return data
+}
+
+// 全部场景集（分支剧情树），按 char_id 分组返回 { charId: [scenes] }
+export async function getContentSceneSets(locale) {
+  const { data } = await db.collection(COLLECTION)
+    .where({ type: 'content_scene_set', locale: normLocale(locale) })
+    .get()
+  const map = {}
+  for (const doc of data) {
+    map[doc.char_id] = doc.scenes || []
+  }
+  return map
+}
+
+// 聊天角色态（好感度/等级），返回 { charId: info }
+export async function getContentChatChars(locale) {
+  const { data } = await db.collection(COLLECTION)
+    .where({ type: 'content_chat_char', locale: normLocale(locale) })
+    .get()
+  const map = {}
+  for (const doc of data) {
+    map[doc.char_id] = doc.info || {}
+  }
+  return map
+}

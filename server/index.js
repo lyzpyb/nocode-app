@@ -15,6 +15,11 @@ import {
   getUserProgress,
   updateUserProgress,
   getAllUserProgress,
+  getContentMeta,
+  getContentDramas,
+  getContentEpisodes,
+  getContentSceneSets,
+  getContentChatChars,
 } from './cloudbase.js';
 
 dotenv.config();
@@ -171,6 +176,77 @@ app.get('/api/progress/all', async (req, res) => {
     res.json({ progress });
   } catch (err) {
     console.error('[progress/all] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// ============ 内容 API（只读，按 locale）============
+// 数据由 scripts/migrate-content.js 迁入，前端可渐进式切换至此，失败回落静态 i18n。
+
+// 一次性返回某 locale 的全部内容（前端 i18n 接入点，单次请求拿齐）
+app.get('/api/content/all', async (req, res) => {
+  try {
+    const locale = req.query.locale || 'zh';
+    const [meta, dramas, episodes, sceneSets, chatChars] = await Promise.all([
+      getContentMeta(locale),
+      getContentDramas(locale),
+      getContentEpisodes(locale),
+      getContentSceneSets(locale),
+      getContentChatChars(locale),
+    ]);
+    res.json({ locale, meta, dramas, episodes, scene_sets: sceneSets, chat_chars: chatChars });
+  } catch (err) {
+    console.error('[content/all] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/content/meta', async (req, res) => {
+  try {
+    const meta = await getContentMeta(req.query.locale || 'zh');
+    res.json({ meta });
+  } catch (err) {
+    console.error('[content/meta] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/content/dramas', async (req, res) => {
+  try {
+    const dramas = await getContentDramas(req.query.locale || 'zh');
+    res.json({ dramas });
+  } catch (err) {
+    console.error('[content/dramas] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/content/episodes', async (req, res) => {
+  try {
+    const episodes = await getContentEpisodes(req.query.locale || 'zh');
+    res.json({ episodes });
+  } catch (err) {
+    console.error('[content/episodes] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/content/scenes', async (req, res) => {
+  try {
+    const scene_sets = await getContentSceneSets(req.query.locale || 'zh');
+    res.json({ scene_sets });
+  } catch (err) {
+    console.error('[content/scenes] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/content/chat-chars', async (req, res) => {
+  try {
+    const chat_chars = await getContentChatChars(req.query.locale || 'zh');
+    res.json({ chat_chars });
+  } catch (err) {
+    console.error('[content/chat-chars] Error:', err);
     res.status(500).json({ error: String(err) });
   }
 });
