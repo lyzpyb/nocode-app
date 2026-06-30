@@ -40,7 +40,7 @@ export const UserProvider = ({ children }) => {
         try {
           const allProgress = await getAllUserProgress(result.user_id);
           const progressMap = {};
-          allProgress.forEach(p => {
+          (allProgress || []).forEach(p => {
             const key = `${p.drama_id}_${p.character_id}`;
             progressMap[key] = p;
           });
