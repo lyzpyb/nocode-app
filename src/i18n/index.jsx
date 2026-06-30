@@ -10,7 +10,7 @@
  *   /#/zh/...  → Chinese (default)
  *   /#/...     → Chinese (default, no prefix)
  */
-import { createContext, useContext, useMemo, useEffect } from "react";
+import { createContext, useContext, useMemo, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import zhStrings from "./zh/strings";
@@ -19,6 +19,7 @@ import zhDramas from "./zh/dramas";
 import enDramas from "./en/dramas";
 import zhChat from "./zh/chat";
 import enChat from "./en/chat";
+import { fetchContent } from "./contentAdapter";
 
 const LocaleContext = createContext(null);
 
@@ -67,6 +68,10 @@ export const LocaleProvider = ({ children }) => {
   const locale = detectLocale(location.pathname);
   const data = LOCALE_MAP[locale];
 
+  // 远端内容覆盖层：{ [locale]: { dramas, chat } }。
+  // 默认 null = 用静态 i18n 数据兜底；fetch 成功且校验通过后才填充。
+  const [overlay, setOverlay] = useState({});
+
   // 读取 localStorage，若用户之前选过英文且当前路径没有 /en 前缀，自动跳转到英文版
   useEffect(() => {
     const preferred = localStorage.getItem("preferred_locale");
@@ -79,15 +84,36 @@ export const LocaleProvider = ({ children }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 渐进式从后端拉取该 locale 的内容；失败或数据不完整时静默回落到静态数据。
+  useEffect(() => {
+    let cancelled = false;
+    if (overlay[locale] !== undefined) return; // 已尝试过该 locale
+    fetchContent(locale, { dramas: data.dramas, chat: data.chat })
+      .then((merged) => {
+        if (!cancelled) setOverlay((prev) => ({ ...prev, [locale]: merged }));
+      })
+      .catch(() => {
+        // 标记为 null：已尝试、用静态兜底，不再重试
+        if (!cancelled) setOverlay((prev) => ({ ...prev, [locale]: null }));
+      });
+    return () => {
+      cancelled = true;
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locale]);
+
   const value = useMemo(
-    () => ({
-      locale,
-      t: data.strings,
-      dramas: data.dramas,
-      chat: data.chat,
-      localePath: (path) => localePath(locale, path),
-    }),
-    [locale, data]
+    () => {
+      const remote = overlay[locale];
+      return {
+        locale,
+        t: data.strings,
+        dramas: (remote && remote.dramas) || data.dramas,
+        chat: (remote && remote.chat) || data.chat,
+        localePath: (path) => localePath(locale, path),
+      };
+    },
+    [locale, data, overlay]
   );
 
   return (
