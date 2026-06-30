@@ -51,7 +51,7 @@ function buildSeedPosts(t) {
       title: c.seed1Title,
       promoText: c.seed1Promo,
       dramaTitle: c.seed1Drama,
-      coverImage: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg",
+      coverImage: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/ujnj6kjw27ro1feytk76v2lr4ztv2r/ep1_60s.jpg",
       charNames: c.user1Name,
       nodeCount: 8,
       _route: "/interactive-player",

@@ -3,6 +3,19 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import {
+  getOrCreateUser,
+  getDramas,
+  getDramaById,
+  getCharactersByDramaId,
+  getCharacterById,
+  getChatHistory,
+  addChatMessage,
+  clearChatHistory,
+  getUserProgress,
+  updateUserProgress,
+  getAllUserProgress,
+} from './cloudbase.js';
 
 dotenv.config();
 
@@ -29,6 +42,137 @@ app.use('/storage', express.static(join(__dirname, 'storage'), {
 // 健康检查
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', version: '1.0.0' });
+});
+
+// ============ 用户 API ============
+app.post('/api/user/login', async (req, res) => {
+  try {
+    const { device_id } = req.body;
+    if (!device_id) return res.status(400).json({ error: 'Missing device_id' });
+    const user = await getOrCreateUser(device_id);
+    // UserContext 期望 user_id 字段
+    res.json({ ...user, user_id: user._id });
+  } catch (err) {
+    console.error('[user/login] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// ============ 剧本 API ============
+app.get('/api/dramas', async (req, res) => {
+  try {
+    const dramas = await getDramas();
+    res.json({ dramas });
+  } catch (err) {
+    console.error('[dramas] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/dramas/:id', async (req, res) => {
+  try {
+    const data = await getDramaById(req.params.id);
+    res.json(Array.isArray(data) ? data[0] || null : data);
+  } catch (err) {
+    console.error('[dramas/:id] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// ============ 角色 API ============
+app.get('/api/characters/:id', async (req, res) => {
+  try {
+    const data = await getCharacterById(req.params.id);
+    const character = Array.isArray(data) ? data[0] || null : data;
+    res.json({ character });
+  } catch (err) {
+    console.error('[characters/:id] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// ============ 聊天记录 API ============
+app.get('/api/chat/history', async (req, res) => {
+  try {
+    const { user_id, drama_id, character_id } = req.query;
+    if (!user_id || !drama_id || !character_id) {
+      return res.status(400).json({ error: 'Missing query params' });
+    }
+    const history = await getChatHistory(user_id, drama_id, character_id);
+    res.json({ history });
+  } catch (err) {
+    console.error('[chat/history GET] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.post('/api/chat/message', async (req, res) => {
+  try {
+    const { user_id, drama_id, character_id, message } = req.body;
+    if (!user_id || !drama_id || !character_id || !message) {
+      return res.status(400).json({ error: 'Missing fields' });
+    }
+    await addChatMessage(user_id, drama_id, character_id, message);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[chat/message] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.delete('/api/chat/history', async (req, res) => {
+  try {
+    const { user_id, drama_id, character_id } = req.body;
+    if (!user_id || !drama_id || !character_id) {
+      return res.status(400).json({ error: 'Missing fields' });
+    }
+    await clearChatHistory(user_id, drama_id, character_id);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[chat/history DELETE] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+// ============ 用户进度 API ============
+app.get('/api/progress', async (req, res) => {
+  try {
+    const { user_id, drama_id, character_id } = req.query;
+    if (!user_id || !drama_id || !character_id) {
+      return res.status(400).json({ error: 'Missing query params' });
+    }
+    const progress = await getUserProgress(user_id, drama_id, character_id);
+    res.json({ progress });
+  } catch (err) {
+    console.error('[progress GET] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.post('/api/progress', async (req, res) => {
+  try {
+    const { user_id, drama_id, character_id, progress } = req.body;
+    if (!user_id || !drama_id || !character_id) {
+      return res.status(400).json({ error: 'Missing fields' });
+    }
+    await updateUserProgress(user_id, drama_id, character_id, progress || {});
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('[progress POST] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
+});
+
+app.get('/api/progress/all', async (req, res) => {
+  try {
+    const { user_id } = req.query;
+    if (!user_id) return res.status(400).json({ error: 'Missing user_id' });
+    const progress = await getAllUserProgress(user_id);
+    res.json({ progress });
+  } catch (err) {
+    console.error('[progress/all] Error:', err);
+    res.status(500).json({ error: String(err) });
+  }
 });
 
 // Ark API 代理

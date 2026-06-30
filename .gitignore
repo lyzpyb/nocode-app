@@ -9,3 +9,4 @@ server/storage/
 server/.env.bak
 *.zip
 .catpaw/
+server/.env.cloudbase

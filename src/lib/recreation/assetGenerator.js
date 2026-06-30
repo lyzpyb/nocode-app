@@ -29,12 +29,12 @@ const SEEDANCE_BASE_URL = 'https://ark.cn-beijing.volces.com/api/v3/contents/gen
 const SEEDANCE_MODEL = 'doubao-seedance-2-0-260128';
 
 // ─── Seedance 角色参考图（通过审核）─────────────────────────────────────────
-const SEEDANCE_REF_SHENYANXI = 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/tqqtbs5yecz2xqzjb1hiwowixyy3w8/shenyanxi_body_yukata.png';
-const SEEDANCE_REF_SUMIAN = 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/4vinzkb68e5nkp6tx4prly5b2mnxkg/sumian_body_yukata.png';
-const SEEDANCE_REF_SHENYANXI2 = 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/q1o8z2w88bvrl0gkkpjn25jpp5nyao/shenyanxi_body_casual.png';
+const SEEDANCE_REF_SHENYANXI = 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/tqqtbs5yecz2xqzjb1hiwowixyy3w8/shenyanxi_body_yukata.png';
+const SEEDANCE_REF_SUMIAN = 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/4vinzkb68e5nkp6tx4prly5b2mnxkg/sumian_body_yukata.png';
+const SEEDANCE_REF_SHENYANXI2 = 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/q1o8z2w88bvrl0gkkpjn25jpp5nyao/shenyanxi_body_casual.png';
 
 // ─── Seedance 参考音频（沈彦希音色，用于 @音频1 音色克隆）────────────────────
-const SEEDANCE_REF_AUDIO = 'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/h785vg56gsi76xzh69p7ogy2bql8g8/xdjq_shenyanxi_candidate.wav';
+const SEEDANCE_REF_AUDIO = 'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/h785vg56gsi76xzh69p7ogy2bql8g8/xdjq_shenyanxi_candidate.wav';
 
 // ─── MiMo V2.5 TTS API 配置 ─────────────────────────────────────────────────
 const MIMO_TTS_API_KEY = 'tp-coj66arkt5dcivacopcniii0v2azdxhbh9gbuyzld6wmdfxh';
@@ -57,11 +57,11 @@ const CHARACTER_REF_SUYAN     = '/characters/character_suyan.jpg';
 // ─── 参考图配置（按集数）─────────────────────────────────────────────────────
 // 每集：角色三视图（沈彦希 + 苏颜）放最前，作为人物外貌基准；后接场景截图参考风格/光影
 const SCENE_FRAMES = [
-  'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/4vbiloxy1ho2gscfb2m5pas6qwgqr4/frame_ep1_30s.jpg',
-  'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/eyfqo9w0bemignxwm1nef722bxboy0/frame_ep1_60s.jpg',
-  'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/v3hz0bcxs6vsit5h81lnwaipiuh5yx/frame_ep2_20s.jpg',
-  'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/7g6bdhbkqo6sqajgjymyndkbyo8ajy/frame_ep3_40s.jpg',
-  'https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/c6njkcmdk4t8m51jyw8ie8eg1whgo0/frame_ep5_30s.jpg',
+  'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/4vbiloxy1ho2gscfb2m5pas6qwgqr4/frame_ep1_30s.jpg',
+  'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/eyfqo9w0bemignxwm1nef722bxboy0/frame_ep1_60s.jpg',
+  'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/v3hz0bcxs6vsit5h81lnwaipiuh5yx/frame_ep2_20s.jpg',
+  'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/7g6bdhbkqo6sqajgjymyndkbyo8ajy/frame_ep3_40s.jpg',
+  'https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/c6njkcmdk4t8m51jyw8ie8eg1whgo0/frame_ep5_30s.jpg',
 ];
 
 export const REFERENCE_IMAGES = {

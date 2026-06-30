@@ -41,18 +41,18 @@ const DRAMA_INFO = {
 };
 
 const CG_ITEMS = [
-  { id: 1, title: "初次相遇", subtitle: "第1集 · 教室", unlocked: true, image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/59frjyxeorfplj0uzmoshfoxb56b7a/01_0s.jpg", rarity: "Common" },
-  { id: 2, title: "心动瞬间", subtitle: "第1集 · 颁奖", unlocked: true, image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/5s1t93ht42nbsqc6rfhwyxja9p2cy7/01_60s.jpg", rarity: "Rare" },
-  { id: 3, title: "运动会邂逅", subtitle: "第2集 · 赛场", unlocked: true, image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/vnnumtyjagyoptzxndmme0h08kfji2/02_40s.jpg", rarity: "Epic" },
-  { id: 4, title: "三人对峙", subtitle: "第2集 · 球场", unlocked: false, condition: "看到第2集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/bnz3ee9zjms6yu26ecevf4fkd6cjtb/02_100s.jpg", rarity: "Epic" },
-  { id: 5, title: "趣味马拉松", subtitle: "第3集 · 赛道", unlocked: false, condition: "看到第3集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/qkd5zcevtlnh3nb4ceqxjyoofb3hp2/03_40s.jpg", rarity: "Rare" },
-  { id: 6, title: "樱花告白", subtitle: "第3集 · 樱花道", unlocked: false, condition: "看到第3集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/uggdo7dkbzlnp9zfry3mfeszisimde/03_60s.jpg", rarity: "Legendary" },
-  { id: 7, title: "转学生登场", subtitle: "第4集 · 教室", unlocked: false, condition: "看到第4集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/mfjnumhwu26htaoz1rkypz2j657d4v/04_60s.jpg", rarity: "Rare" },
-  { id: 8, title: "糟糕是心动", subtitle: "第4集 · 走廊", unlocked: false, condition: "看到第4集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/4812vbrrxddnjwm7sa0lfhd1pjqw4i/04_140s.jpg", rarity: "Epic" },
-  { id: 9, title: "图书馆邂逅", subtitle: "第5集 · 图书馆", unlocked: false, condition: "看到第5集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/n2b2vujn08dwm3jq3e28z3t4lverug/05%281%29_20s.jpg", rarity: "Rare" },
-  { id: 10, title: "小王子的约定", subtitle: "第5集 · 图书馆", unlocked: false, condition: "看到第5集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/c7vsfvkqcqputjq342znkr0yz5a109/05%281%29_60s.jpg", rarity: "Legendary" },
-  { id: 11, title: "放学同行", subtitle: "第5集 · 小巷", unlocked: false, condition: "看到第5集", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/fhs1k3y92kgxtnprnmy1qh4hfunnch/05%281%29_80s.jpg", rarity: "Epic" },
-  { id: 12, title: "校庆排练", subtitle: "第5集 · 音乐教室", unlocked: false, condition: "看完全剧", image: "https://s3plus.meituan.net/mcopilot-pub/afterline-task/chenyanbo/t7sat29xk397us2bkq8n6qykx7b6fx/05%281%29_99s.jpg", rarity: "Legendary" },
+  { id: 1, title: "初次相遇", subtitle: "第1集 · 教室", unlocked: true, image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/59frjyxeorfplj0uzmoshfoxb56b7a/01_0s.jpg", rarity: "Common" },
+  { id: 2, title: "心动瞬间", subtitle: "第1集 · 颁奖", unlocked: true, image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/5s1t93ht42nbsqc6rfhwyxja9p2cy7/01_60s.jpg", rarity: "Rare" },
+  { id: 3, title: "运动会邂逅", subtitle: "第2集 · 赛场", unlocked: true, image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/vnnumtyjagyoptzxndmme0h08kfji2/02_40s.jpg", rarity: "Epic" },
+  { id: 4, title: "三人对峙", subtitle: "第2集 · 球场", unlocked: false, condition: "看到第2集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/bnz3ee9zjms6yu26ecevf4fkd6cjtb/02_100s.jpg", rarity: "Epic" },
+  { id: 5, title: "趣味马拉松", subtitle: "第3集 · 赛道", unlocked: false, condition: "看到第3集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/qkd5zcevtlnh3nb4ceqxjyoofb3hp2/03_40s.jpg", rarity: "Rare" },
+  { id: 6, title: "樱花告白", subtitle: "第3集 · 樱花道", unlocked: false, condition: "看到第3集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/uggdo7dkbzlnp9zfry3mfeszisimde/03_60s.jpg", rarity: "Legendary" },
+  { id: 7, title: "转学生登场", subtitle: "第4集 · 教室", unlocked: false, condition: "看到第4集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/mfjnumhwu26htaoz1rkypz2j657d4v/04_60s.jpg", rarity: "Rare" },
+  { id: 8, title: "糟糕是心动", subtitle: "第4集 · 走廊", unlocked: false, condition: "看到第4集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/4812vbrrxddnjwm7sa0lfhd1pjqw4i/04_140s.jpg", rarity: "Epic" },
+  { id: 9, title: "图书馆邂逅", subtitle: "第5集 · 图书馆", unlocked: false, condition: "看到第5集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/n2b2vujn08dwm3jq3e28z3t4lverug/05%281%29_20s.jpg", rarity: "Rare" },
+  { id: 10, title: "小王子的约定", subtitle: "第5集 · 图书馆", unlocked: false, condition: "看到第5集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/c7vsfvkqcqputjq342znkr0yz5a109/05%281%29_60s.jpg", rarity: "Legendary" },
+  { id: 11, title: "放学同行", subtitle: "第5集 · 小巷", unlocked: false, condition: "看到第5集", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/fhs1k3y92kgxtnprnmy1qh4hfunnch/05%281%29_80s.jpg", rarity: "Epic" },
+  { id: 12, title: "校庆排练", subtitle: "第5集 · 音乐教室", unlocked: false, condition: "看完全剧", image: "https://s3plus.meituan.net/mcopilot-pub/nocode-task/chenyanbo/t7sat29xk397us2bkq8n6qykx7b6fx/05%281%29_99s.jpg", rarity: "Legendary" },
 ];
 
 // ─── Rarity config ─────────────────────────────────────────────────────────────

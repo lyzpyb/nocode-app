@@ -11,7 +11,7 @@ export const CHARACTERS = {
     levelLabel: "Entangled",
     intimacy: 0,
     intimacyMax: 100,
-    image: "https://s3plus.meituan.net/mcopilot-pub/afterline_image/default/kane-avatar-55f570vnoa17povjwjklzgbdkix83z.jpg",
+    image: "https://s3plus.meituan.net/mcopilot-pub/nocode_image/default/kane-avatar-55f570vnoa17povjwjklzgbdkix83z.jpg",
   },
 };
 
